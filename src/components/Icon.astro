@@ -1,0 +1,42 @@
+---
+interface Props {
+  name:
+    | "download"
+    | "chevron"
+    | "windows"
+    | "expand"
+    | "check"
+    | "close"
+    | "menu"
+    | "copy"
+    | "file";
+  size?: number;
+}
+const { name, size = 20 } = Astro.props;
+const paths = {
+  download: "M12 3v12m-4-4 4 4 4-4M5 15v5h14v-5",
+  chevron: "m9 5 7 7-7 7",
+  windows:
+    "M3 4.5 10.5 3v8H3zm10-2L21 1v10h-8zM3 13h7.5v8L3 19.5zm10 0h8v10l-8-1.5z",
+  expand: "M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5",
+  check: "m5 12 4 4L19 6",
+  close: "m6 6 12 12M6 18 18 6",
+  menu: "M4 7h16M4 12h16M4 17h16",
+  copy: "M9 9h12v12H9zM15 5V3H3v12h2",
+  file: "M14 2H5v20h14V7zm0 0v5h5M8 12h8M8 16h8",
+};
+---
+
+<svg
+  width={size}
+  height={size}
+  viewBox="0 0 24 24"
+  fill={name === "windows" ? "currentColor" : "none"}
+  stroke={name === "windows" ? "none" : "currentColor"}
+  stroke-width="1.6"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+>
+  <path d={paths[name]} />
+</svg>

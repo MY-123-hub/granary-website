@@ -1,0 +1,1137 @@
+---
+import { sitePath } from "../lib/paths";
+import Icon from "./Icon.astro";
+import {
+  monitoringPreview as preview,
+  monitoringSummary as summary,
+} from "../data/monitoring-preview";
+const trendPath = preview.trend
+  .map(
+    (value, index) =>
+      `${index === 0 ? "M" : "L"}${((index / (preview.trend.length - 1)) * 248 + 12).toFixed(1)} ${(96 - (value - 22.2) * 42).toFixed(1)}`,
+  )
+  .join(" ");
+---
+
+<figure class="monitoring-showcase" aria-labelledby="monitoring-caption">
+  <div class="monitoring-stage">
+    <div
+      class="monitoring-window"
+      role="group"
+      aria-label="智慧粮仓实时监测页面的高保真界面演示"
+    >
+      <div class="monitoring-window-bar">
+        <span class="preview-window-dots" aria-hidden="true">
+          <i></i>
+          <i></i>
+          <i></i>
+        </span>
+        <span>智慧粮仓检测系统</span>
+        <span class="preview-environment">
+          <i aria-hidden="true"></i>本地部署
+        </span>
+      </div>
+      <div class="monitoring-app">
+        <aside class="preview-sidebar" aria-label="演示界面的栏目">
+          <div class="preview-app-brand">
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M4 10 12 4l8 6v10H4Z"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M12 9v11m0-6c-3 0-4-2-4-4 3 0 4 2 4 4Zm0 4c3 0 4-2 4-4-3 0-4 2-4 4Z"
+                stroke="currentColor"
+                stroke-width="1.3"
+              />
+            </svg>
+            <span>智慧粮仓</span>
+          </div>
+          <div class="preview-nav">
+            <span class="preview-nav-label">粮情管理</span>
+            <span class="preview-nav-item selected">
+              <svg
+                viewBox="0 0 20 20"
+                width="16"
+                height="16"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M3 15V5m0 10h14M6 12l3-4 3 2 4-5"
+                  stroke="currentColor"
+                  stroke-width="1.4"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              实时监测
+            </span>
+            <span class="preview-nav-item">
+              <Icon name="file" size={16} />
+              历史数据
+            </span>
+            <span class="preview-nav-item">
+              <svg
+                viewBox="0 0 20 20"
+                width="16"
+                height="16"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="m3 8 7-5 7 5v9H3Zm4 3h6v6"
+                  stroke="currentColor"
+                  stroke-width="1.4"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              仓房档案
+            </span>
+            <span class="preview-nav-label second">现场配置</span>
+            <span class="preview-nav-item">
+              <svg
+                viewBox="0 0 20 20"
+                width="16"
+                height="16"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M5 3v5h10V3M7 8v5h6V8m-3 5v4"
+                  stroke="currentColor"
+                  stroke-width="1.4"
+                  stroke-linecap="round"
+                />
+              </svg>
+              通讯与分机
+            </span>
+            <span class="preview-nav-item">
+              <svg
+                viewBox="0 0 20 20"
+                width="16"
+                height="16"
+                fill="none"
+                aria-hidden="true"
+              >
+                <circle
+                  cx="10"
+                  cy="10"
+                  r="6"
+                  stroke="currentColor"
+                  stroke-width="1.4"
+                />
+                <path
+                  d="M10 6v5m0 3v.1"
+                  stroke="currentColor"
+                  stroke-width="1.4"
+                  stroke-linecap="round"
+                />
+              </svg>
+              报警记录
+            </span>
+          </div>
+          <div class="preview-sidebar-foot">
+            <Icon name="windows" size={13} />
+            <span>Windows 本地系统</span>
+          </div>
+        </aside>
+        <div class="preview-workspace">
+          <div class="preview-page-heading">
+            <div>
+              <h2>实时监测</h2>
+              <p>查看每一层的粮温与测点状态</p>
+            </div>
+            <a class="preview-export-button" href={sitePath("/docs/exports/")}>
+              <Icon name="download" size={14} />
+              导出说明
+            </a>
+          </div>
+          <div class="preview-warehouse">
+            <span class="warehouse-symbol" aria-hidden="true">
+              01
+            </span>
+            <div>
+              <strong>{preview.warehouse}</strong>
+              <span>
+                {preview.grain}
+                <i></i>4 根电缆<i></i>5 层测点
+              </span>
+            </div>
+            <span class="preview-batch">
+              检测批次<small>10月6日 19:04</small>
+            </span>
+          </div>
+          <dl class="preview-metrics">
+            <div>
+              <dt>平均粮温</dt>
+              <dd>
+                {summary.average}
+                <span>℃</span>
+              </dd>
+            </div>
+            <div>
+              <dt>最高粮温</dt>
+              <dd>
+                {summary.max}
+                <span>℃</span>
+              </dd>
+            </div>
+            <div>
+              <dt>最低粮温</dt>
+              <dd>
+                {summary.min}
+                <span>℃</span>
+              </dd>
+            </div>
+            <div>
+              <dt>有效测点</dt>
+              <dd>
+                {summary.validPoints}
+                <span>/ {summary.validPoints}</span>
+              </dd>
+            </div>
+          </dl>
+          <div class="preview-table-heading">
+            <h3>分层粮温</h3>
+            <span>
+              <i aria-hidden="true"></i>本批次无异常点
+            </span>
+          </div>
+          <table class="preview-temperature-table">
+            <caption class="visually-hidden">
+              历史样本中各层、各电缆的粮温，单位摄氏度
+            </caption>
+            <thead>
+              <tr>
+                <th scope="col">测温层</th>
+                {[1, 2, 3, 4].map((cable) => (
+                  <th scope="col">
+                    <span>电缆 {cable.toString().padStart(2, "0")}</span>
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {preview.layers.map((readings, layer) => (
+                <tr>
+                  <th scope="row">
+                    <span class="layer-number">{layer + 1}</span>
+                    <span>第 {layer + 1} 层</span>
+                  </th>
+                  {readings.map((value) => (
+                    <td>
+                      <span
+                        class:list={[
+                          "point-reading",
+                          { "warm-point": value >= 23.8 },
+                        ]}
+                      >
+                        {value.toFixed(1)}
+                        <small>℃</small>
+                      </span>
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <div class="preview-table-foot">
+            <span>离线与缺测单独标记，保留原始检测记录。</span>
+            <span>20 个测点</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <aside class="floating-trend" aria-label="粮温曲线的演示数据">
+      <div class="float-card-heading">
+        <span>粮温趋势</span>
+        <span>近 24 小时 · 演示</span>
+      </div>
+      <div class="trend-reading">
+        <strong>
+          {summary.average}
+          <small>℃</small>
+        </strong>
+        <span>整仓平均粮温</span>
+      </div>
+      <svg
+        class="preview-trend-chart"
+        viewBox="0 0 272 120"
+        role="img"
+        aria-label="演示粮温曲线，展示历史变化的产品能力"
+      >
+        <path
+          d="M12 30H260M12 65H260M12 100H260"
+          stroke="#edf0ed"
+          stroke-width="1"
+        />
+        <path
+          d={trendPath}
+          fill="none"
+          stroke="#4e7d61"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <circle
+          cx="260"
+          cy={96 - (preview.trend.at(-1)! - 22.2) * 42}
+          r="3.5"
+          fill="#4e7d61"
+          stroke="white"
+          stroke-width="2"
+        />
+        <text x="12" y="118">
+          00:00
+        </text>
+        <text x="121" y="118">
+          12:00
+        </text>
+        <text x="234" y="118">
+          24:00
+        </text>
+      </svg>
+    </aside>
+    <aside class="floating-collection" aria-label="历史样本的采集时间">
+      <span class="collection-icon">
+        <Icon name="check" size={15} />
+      </span>
+      <div>
+        <span>已保存的采集记录</span>
+        <strong>19:04:25</strong>
+        <small>2026.10.06 · 历史样本</small>
+      </div>
+    </aside>
+    <a class="floating-export" href={sitePath("/docs/exports/")}>
+      <span class="export-file-icon">
+        <Icon name="file" size={19} />
+      </span>
+      <span>
+        <strong>导出检测记录</strong>
+        <small>Excel / CSV / PDF</small>
+      </span>
+      <Icon name="chevron" size={15} />
+    </a>
+  </div>
+  <figcaption id="monitoring-caption">
+    <span>基于现有功能的产品界面演示</span>
+    <span>历史样本与演示曲线，非实时连接</span>
+  </figcaption>
+</figure>
+<style>
+  .monitoring-showcase {
+    max-width: 1100px;
+    margin: 38px auto 0;
+    text-align: left;
+    animation: hero-appear 0.6s 0.1s ease-out both;
+  }
+  .monitoring-stage {
+    position: relative;
+    padding: 0 39px 61px 42px;
+  }
+  .monitoring-window {
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid #dce3de;
+    border-radius: 14px;
+    box-shadow:
+      0 22px 65px -24px #253f2c2b,
+      0 3px 12px #22352805;
+  }
+  .monitoring-window-bar {
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    border-bottom: 1px solid #e8ece9;
+    font-size: 10px;
+    color: #778078;
+    background: #fff;
+  }
+  .preview-window-dots {
+    position: absolute;
+    left: 14px;
+    display: flex;
+    gap: 5px;
+  }
+  .preview-window-dots i {
+    width: 6px;
+    height: 6px;
+    border: 1px solid #d3dbd5;
+    border-radius: 50%;
+    background: #f7f9f7;
+  }
+  .preview-environment {
+    position: absolute;
+    right: 15px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 9px;
+    color: #677b6e;
+  }
+  .preview-environment i {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #7f9c87;
+  }
+  .monitoring-app {
+    display: grid;
+    grid-template-columns: 170px 1fr;
+  }
+  .preview-sidebar {
+    background: #f8faf8;
+    border-right: 1px solid #e8ece8;
+    padding: 26px 14px 16px;
+    display: flex;
+    flex-direction: column;
+  }
+  .preview-app-brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #3d624a;
+    font-size: 13px;
+    font-weight: 600;
+    padding-left: 3px;
+  }
+  .preview-nav {
+    margin-top: 29px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .preview-nav-label {
+    font-size: 9px;
+    color: #8b948d;
+    padding: 0 10px 5px;
+  }
+  .preview-nav-label.second {
+    margin-top: 0;
+  }
+  .preview-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    line-height: 1.4;
+    padding: 10px 9px;
+    font-size: 10px;
+    color: #6d776f;
+    border-radius: 5px;
+  }
+  .preview-nav-item svg {
+    color: #8c978e;
+  }
+  .preview-nav-item.selected {
+    background: #eaf1eb;
+    color: #385e44;
+    font-weight: 500;
+  }
+  .preview-nav-item.selected svg {
+    color: #55785c;
+  }
+  .preview-sidebar-foot {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    margin-top: auto;
+    padding: 25px 3px 0;
+    font-size: 8px;
+    color: #929c94;
+  }
+  .preview-workspace {
+    padding: 18px 27px 16px;
+    min-width: 0;
+  }
+  .preview-page-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-top: 13px;
+  }
+  .preview-page-heading h2 {
+    font-size: 23px;
+    letter-spacing: -0.025em;
+    line-height: 1.3;
+    color: #2b372f;
+    font-weight: 600;
+  }
+  .preview-page-heading p {
+    font-size: 10px;
+    color: #869088;
+    margin-top: 6px;
+  }
+  .preview-export-button {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 10px;
+    border: 1px solid #e0e6e0;
+    border-radius: 5px;
+    font-size: 9px;
+    line-height: 1.4;
+    white-space: nowrap;
+    color: #69766c;
+    background: white;
+    transition: background 0.18s;
+  }
+  .preview-export-button:hover {
+    background: #f0f5f1;
+  }
+  .preview-warehouse {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 16px;
+    padding-bottom: 13px;
+    border-bottom: 1px solid #e9eee9;
+  }
+  .warehouse-symbol {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border: 1px solid #dde7de;
+    border-radius: 7px;
+    background: #f0f5f1;
+    font-size: 12px;
+    color: #60846b;
+  }
+  .preview-warehouse > div {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .preview-warehouse strong {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.3;
+    color: #39493d;
+  }
+  .preview-warehouse > div > span {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 8px;
+    color: #86928a;
+  }
+  .preview-warehouse i {
+    height: 2px;
+    width: 2px;
+    border-radius: 50%;
+    background: #a3afa6;
+  }
+  .preview-batch {
+    margin-left: auto;
+    font-size: 8px;
+    line-height: 1.5;
+    color: #95a197;
+    text-align: right;
+  }
+  .preview-batch small {
+    display: block;
+    font-size: 9px;
+    color: #728175;
+    margin-top: 3px;
+  }
+  .preview-metrics {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin: 16px 0 18px;
+    gap: 16px;
+  }
+  .preview-metrics > div + div {
+    border-left: 1px solid #ecf0ec;
+    padding-left: 23px;
+  }
+  .preview-metrics dt {
+    font-size: 9px;
+    color: #7f8b82;
+    line-height: 1.5;
+  }
+  .preview-metrics dd {
+    margin: 7px 0 0;
+    line-height: 1.2;
+    font-size: 25px;
+    letter-spacing: -0.04em;
+    font-weight: 500;
+    color: #37493c;
+    font-variant-numeric: tabular-nums;
+  }
+  .preview-metrics dd span {
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0;
+    color: #96a198;
+    margin-left: 5px;
+  }
+  .preview-table-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .preview-table-heading h3 {
+    font-size: 12px;
+    font-weight: 500;
+    color: #526358;
+  }
+  .preview-table-heading > span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 8px;
+    color: #849188;
+  }
+  .preview-table-heading i {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #84a78c;
+  }
+  .preview-temperature-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    font-size: 10px;
+    font-variant-numeric: tabular-nums;
+  }
+  .preview-temperature-table thead {
+    background: #f6f8f6;
+  }
+  .preview-temperature-table th {
+    font-weight: 400;
+  }
+  .preview-temperature-table thead th {
+    text-align: center;
+    height: 33px;
+    font-size: 9px;
+    color: #8a978d;
+    border-block: 1px solid #e9eeea;
+  }
+  .preview-temperature-table thead th:first-child {
+    text-align: left;
+    padding-left: 12px;
+    width: 24%;
+  }
+  .preview-temperature-table tbody th {
+    padding-left: 12px;
+    text-align: left;
+    font-size: 9px;
+    color: #78877c;
+    white-space: nowrap;
+  }
+  .layer-number {
+    display: inline-grid;
+    place-items: center;
+    border: 1px solid #e5ebe5;
+    width: 19px;
+    height: 19px;
+    border-radius: 4px;
+    font-size: 8px;
+    color: #95a097;
+    background: #fafbfa;
+    margin-right: 9px;
+  }
+  .preview-temperature-table td {
+    height: 32px;
+    text-align: center;
+    border-bottom: 1px solid #edf1ed;
+    color: #526c59;
+  }
+  .preview-temperature-table tbody th {
+    border-bottom: 1px solid #edf1ed;
+  }
+  .point-reading {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 3px;
+    padding: 4px 7px;
+    color: #557360;
+    font-size: 12px;
+    border-radius: 4px;
+  }
+  .point-reading small {
+    font-size: 7px;
+    color: #95a699;
+  }
+  .warm-point {
+    background: #f0f5ef;
+    color: #658061;
+  }
+  .preview-table-foot {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    font-size: 8px;
+    color: #7b8a7e;
+    margin-top: 13px;
+  }
+  .floating-trend {
+    position: absolute;
+    left: 0;
+    bottom: 19px;
+    width: 240px;
+    background: white;
+    border: 1px solid #e1e7e1;
+    border-radius: 12px;
+    padding: 17px 19px 14px;
+    box-shadow:
+      0 16px 43px -16px #243c2d33,
+      0 2px 8px #26332a04;
+  }
+  .float-card-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 11px;
+    color: #4f6055;
+  }
+  .float-card-heading > span + span {
+    font-size: 8px;
+    color: #8b978d;
+  }
+  .trend-reading {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-top: 13px;
+  }
+  .trend-reading strong {
+    font-size: 24px;
+    font-weight: 500;
+    letter-spacing: -0.04em;
+    line-height: 1.2;
+    color: #496653;
+  }
+  .trend-reading small {
+    font-size: 10px;
+    color: #819587;
+    margin-left: 5px;
+  }
+  .trend-reading > span {
+    font-size: 8px;
+    color: #91a096;
+  }
+  .preview-trend-chart {
+    width: 100%;
+    height: auto;
+    margin-top: 9px;
+    display: block;
+  }
+  .preview-trend-chart text {
+    fill: #8b988e;
+    font:
+      8px Arial,
+      sans-serif;
+  }
+  .floating-collection {
+    position: absolute;
+    right: -9px;
+    top: -12px;
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    border: 1px solid #e1e7e1;
+    border-radius: 10px;
+    background: #fff;
+    padding: 15px 19px;
+    box-shadow: 0 12px 35px -14px #25442b30;
+  }
+  .collection-icon {
+    display: grid;
+    place-items: center;
+    width: 29px;
+    height: 29px;
+    border-radius: 50%;
+    background: #eef5ef;
+    color: #668a70;
+  }
+  .floating-collection > div {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .floating-collection > div > span {
+    font-size: 9px;
+    color: #839188;
+  }
+  .floating-collection strong {
+    font-size: 20px;
+    letter-spacing: -0.025em;
+    color: #415847;
+    font-weight: 500;
+    line-height: 1.3;
+    font-variant-numeric: tabular-nums;
+  }
+  .floating-collection small {
+    font-size: 8px;
+    color: #7b8a7e;
+  }
+  .floating-export {
+    position: absolute;
+    right: 13px;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    border: 1px solid #e2e7e2;
+    border-radius: 9px;
+    padding: 13px 17px;
+    background: #fff;
+    box-shadow: 0 12px 37px -17px #243d2b2b;
+    color: #809785;
+    transition:
+      transform 0.2s,
+      box-shadow 0.2s;
+  }
+  .floating-export:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 39px -16px #243d2b3b;
+  }
+  .export-file-icon {
+    display: grid;
+    place-items: center;
+    width: 33px;
+    height: 37px;
+    border: 1px solid #e1e9e2;
+    border-radius: 5px;
+    background: #f5f8f5;
+    color: #779b82;
+  }
+  .floating-export > span:nth-child(2) {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .floating-export strong {
+    font-size: 11px;
+    font-weight: 500;
+    color: #617667;
+  }
+  .floating-export small {
+    font-size: 9px;
+    color: #93a397;
+  }
+  .floating-export > svg {
+    margin-left: 14px;
+  }
+  .monitoring-showcase figcaption {
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    flex-wrap: wrap;
+    margin-top: 5px;
+    font-size: 10px;
+    line-height: 1.8;
+    color: #69716b;
+  }
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+  @media (max-width: 1050px) {
+    .monitoring-stage {
+      padding-inline: 23px;
+    }
+    .monitoring-app {
+      grid-template-columns: 134px 1fr;
+    }
+    .preview-sidebar {
+      padding-inline: 10px;
+    }
+    .preview-workspace {
+      padding-inline: 23px;
+    }
+    .preview-metrics > div + div {
+      padding-left: 14px;
+    }
+    .floating-collection {
+      right: 0;
+      top: -12px;
+      padding: 12px 14px;
+    }
+    .floating-collection strong {
+      font-size: 18px;
+    }
+    .floating-trend {
+      width: 165px;
+      padding: 15px 16px;
+    }
+    .floating-export {
+      right: 0;
+      bottom: 0;
+    }
+    .preview-temperature-table td {
+      height: 32px;
+    }
+  }
+  @media (max-width: 760px) {
+    .monitoring-showcase {
+      margin-top: 36px;
+    }
+    .monitoring-stage {
+      padding: 0;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 132px;
+      gap: 10px;
+      align-items: center;
+    }
+    .monitoring-window {
+      grid-column: 1 / -1;
+      border-radius: 10px;
+      box-shadow: 0 13px 37px -20px #253f2c35;
+    }
+    .monitoring-window-bar {
+      height: 29px;
+      font-size: 8px;
+    }
+    .preview-environment {
+      font-size: 7px;
+      right: 10px;
+    }
+    .preview-window-dots {
+      left: 10px;
+      gap: 3px;
+    }
+    .preview-window-dots i {
+      width: 4px;
+      height: 4px;
+    }
+    .monitoring-app {
+      grid-template-columns: 1fr;
+    }
+    .preview-sidebar {
+      display: none;
+    }
+    .preview-workspace {
+      padding: 15px 17px 15px;
+    }
+    .preview-page-heading {
+      margin-top: 14px;
+      gap: 8px;
+    }
+    .preview-page-heading h2 {
+      font-size: 19px;
+    }
+    .preview-page-heading p {
+      font-size: 8px;
+    }
+    .preview-export-button {
+      padding: 6px 7px;
+      font-size: 7px;
+      gap: 4px;
+    }
+    .preview-export-button svg {
+      width: 11px;
+      height: 11px;
+    }
+    .preview-warehouse {
+      margin-top: 19px;
+      padding-bottom: 14px;
+      gap: 8px;
+    }
+    .warehouse-symbol {
+      width: 29px;
+      height: 29px;
+      font-size: 10px;
+      border-radius: 5px;
+    }
+    .preview-warehouse strong {
+      font-size: 10px;
+    }
+    .preview-warehouse > div > span {
+      font-size: 7px;
+      gap: 5px;
+    }
+    .preview-batch {
+      font-size: 7px;
+    }
+    .preview-batch small {
+      font-size: 7px;
+    }
+    .preview-metrics {
+      gap: 6px;
+      margin-top: 16px;
+      margin-bottom: 20px;
+    }
+    .preview-metrics > div + div {
+      padding-left: 10px;
+    }
+    .preview-metrics dt {
+      font-size: 8px;
+    }
+    .preview-metrics dd {
+      font-size: 21px;
+    }
+    .preview-metrics dd span {
+      font-size: 8px;
+      margin-left: 3px;
+    }
+    .preview-table-heading h3 {
+      font-size: 10px;
+    }
+    .preview-table-heading > span {
+      font-size: 7px;
+    }
+    .preview-temperature-table thead th {
+      height: 28px;
+      font-size: 7px;
+    }
+    .preview-temperature-table thead th:first-child {
+      width: 24%;
+      padding-left: 4px;
+    }
+    .preview-temperature-table tbody th {
+      font-size: 7px;
+      padding-left: 4px;
+    }
+    .layer-number {
+      width: 14px;
+      height: 14px;
+      font-size: 6px;
+      margin-right: 4px;
+    }
+    .preview-temperature-table td {
+      height: 35px;
+    }
+    .point-reading {
+      font-size: 10px;
+      gap: 1px;
+      padding: 3px 5px;
+    }
+    .point-reading small {
+      font-size: 6px;
+    }
+    .preview-table-foot {
+      font-size: 7px;
+      line-height: 1.7;
+    }
+    .preview-table-foot > span:last-child {
+      display: none;
+    }
+    .floating-collection {
+      display: none;
+    }
+    .floating-trend {
+      position: relative;
+      left: auto;
+      bottom: auto;
+      grid-column: 1;
+      width: 100%;
+      margin: -9px 0 0;
+      z-index: 1;
+      padding: 13px 14px 11px;
+      border-radius: 9px;
+      box-shadow: 0 12px 30px -17px #243c2d3a;
+    }
+    .float-card-heading {
+      font-size: 10px;
+    }
+    .float-card-heading > span + span {
+      font-size: 7px;
+    }
+    .trend-reading {
+      margin-top: 11px;
+    }
+    .trend-reading strong {
+      font-size: 21px;
+    }
+    .preview-trend-chart {
+      height: 74px;
+      margin-top: 5px;
+    }
+    .floating-export {
+      position: relative;
+      right: auto;
+      bottom: auto;
+      width: 132px;
+      padding: 10px 8px;
+      gap: 7px;
+      border-radius: 8px;
+      z-index: 2;
+    }
+    .export-file-icon {
+      width: 25px;
+      height: 30px;
+    }
+    .export-file-icon svg {
+      width: 15px;
+    }
+    .floating-export strong {
+      font-size: 10px;
+      line-height: 1.6;
+    }
+    .floating-export small {
+      font-size: 7px;
+      line-height: 1.8;
+    }
+    .floating-export > svg {
+      display: none;
+    }
+    .monitoring-showcase figcaption {
+      font-size: 9px;
+      gap: 2px;
+      margin-top: 20px;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+  @media (max-width: 380px) {
+    .preview-workspace {
+      padding-inline: 13px;
+    }
+    .preview-metrics dd {
+      font-size: 18px;
+    }
+    .preview-metrics > div + div {
+      padding-left: 7px;
+    }
+    .preview-warehouse > div > span {
+      gap: 4px;
+    }
+    .preview-table-foot {
+      font-size: 6px;
+    }
+    .monitoring-stage {
+      grid-template-columns: minmax(0, 1fr) 108px;
+      gap: 8px;
+    }
+    .floating-export {
+      width: 108px;
+    }
+    .floating-export .export-file-icon {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .monitoring-showcase {
+      animation: none;
+    }
+    .floating-export {
+      transition: none;
+    }
+    .floating-export:hover {
+      transform: none;
+    }
+  }
+</style>

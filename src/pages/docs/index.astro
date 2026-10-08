@@ -1,0 +1,50 @@
+---
+import { sitePath } from "../../lib/paths";
+import Layout from "../../layouts/Layout.astro";
+import Icon from "../../components/Icon.astro";
+import { docTopics } from "../../data/product";
+const categories = ["开始使用", "设备接入", "日常管理"];
+---
+
+<Layout title="使用文档">
+  <section class="page-intro container">
+    <span class="feature-topic">使用文档</span>
+    <h1>
+      从第一次部署，
+      <br />
+      到每天的使用。
+    </h1>
+    <p>
+      按现场工作找到需要的说明。
+      <br />
+      完整教程正在整理，将随正式版本补充。
+    </p>
+  </section>
+  <section class="docs-index container">
+    {categories.map((category) => (
+      <div class="docs-group">
+        <h2>{category}</h2>
+        <div>
+          {docTopics
+            .filter((doc) => doc.category === category)
+            .map((doc) => (
+              <a class="doc-link" href={sitePath(`/docs/${doc.slug}/`)}>
+                <div>
+                  <h3>{doc.title}</h3>
+                  <p>{doc.summary}</p>
+                  <span>教程待补充</span>
+                </div>
+                <Icon name="chevron" size={21} />
+              </a>
+            ))}
+        </div>
+      </div>
+    ))}
+  </section>
+  <section class="docs-footer-note container">
+    <Icon name="file" size={22} />
+    <p>
+      文档将与公开发布版本同步。当前入口展示结构与章节范围，详细操作步骤待补充。
+    </p>
+  </section>
+</Layout>

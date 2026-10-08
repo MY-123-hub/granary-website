@@ -1,0 +1,199 @@
+---
+import { sitePath } from "../lib/paths";
+import Layout from "../layouts/Layout.astro";
+import { latestPublished } from "../data/product";
+import Icon from "../components/Icon.astro";
+import MonitoringPreview from "../components/MonitoringPreview.astro";
+import Screenshot from "../components/Screenshot.astro";
+import DownloadCTA from "../components/DownloadCTA.astro";
+---
+
+<Layout>
+  <section class="hero container">
+    <h1>
+      复杂粮情，
+      <br />
+      清晰掌握。
+    </h1>
+    <p class="hero-description">
+      从仓内测点到历史趋势，让粮情清晰，让管理有据。
+    </p>
+    <div class="hero-actions">
+      <a class="button" href={sitePath("/download/")}>
+        <Icon name="windows" size={18} />
+        下载 Windows 版
+      </a>
+      <a class="button button-outline" href={sitePath("/product/")}>
+        了解产品
+      </a>
+    </div>
+    <p class="hero-availability">
+      Windows x64 ·{" "}
+      {latestPublished
+        ? `v${latestPublished.version} 已发布`
+        : "公开下载即将开放"}
+    </p>
+    <MonitoringPreview />
+  </section>
+  <section class="intro-section container" id="features">
+    <div class="section-heading">
+      <h2>
+        把粮情，
+        <br />
+        变成看得懂的信息。
+      </h2>
+      <p>
+        测点、曲线、档案与记录，在同一个本地系统里连接。
+        <br class="desktop-break" />
+        少一点来回查找，多一点清晰判断。
+      </p>
+    </div>
+    <div class="capability-line">
+      <span>真实 RS485 粮温采集</span>
+      <span>平面与三维测点</span>
+      <span>历史数据查询</span>
+      <span>Windows 本地部署</span>
+    </div>
+  </section>
+  <section class="feature-row container">
+    <div class="feature-copy">
+      <span class="feature-topic">粮温监测与分析</span>
+      <h2>
+        看见此刻，
+        <br />
+        也看见变化。
+      </h2>
+      <p>
+        在平面图与三维视图中定位测点，结合历史曲线查看整仓与单点粮温。异常、离线和缺测分别呈现，保留每一次检测的真实状态。
+      </p>
+      <a class="text-link" href={sitePath("/product/#monitoring")}>
+        了解粮温监测
+        <Icon name="chevron" size={16} />
+      </a>
+    </div>
+    <div class="feature-visual">
+      <Screenshot id="curves" crop />
+    </div>
+  </section>
+  <section class="feature-row reverse container">
+    <div class="feature-visual">
+      <Screenshot id="warehouses" crop />
+    </div>
+    <div class="feature-copy">
+      <span class="feature-topic">多粮仓管理</span>
+      <h2>
+        每一座仓房，
+        <br />
+        都有清晰的档案。
+      </h2>
+      <p>
+        从仓型、储粮批次到电缆与测点配置，按仓房组织信息。归档后仍可查看历史记录和导出，让管理过程有迹可循。
+      </p>
+      <a class="text-link" href={sitePath("/product/#warehouses")}>
+        了解仓房管理
+        <Icon name="chevron" size={16} />
+      </a>
+    </div>
+  </section>
+  <section class="connection-section">
+    <div class="container">
+      <div class="section-heading">
+        <h2>
+          立足现场。
+          <br />
+          连接已有测温设备。
+        </h2>
+        <p>
+          通过 USB RS485 接入粮温分机，
+          <br />
+          在本地完成采集、查询和数据保存。
+        </p>
+      </div>
+      <div
+        class="connection-diagram"
+        role="img"
+        aria-label="Windows 本地计算机，通过 USB RS485 总线连接多台粮温分机"
+      >
+        <div class="diagram-computer">
+          <Icon name="windows" size={27} />
+          <strong>本地计算机</strong>
+          <span>智慧粮仓检测系统</span>
+        </div>
+        <div class="diagram-wire">
+          <span>USB RS485</span>
+          <i></i>
+        </div>
+        <div class="diagram-stations">
+          <div>
+            <i></i>
+            <span>粮温分机</span>
+          </div>
+          <div>
+            <i></i>
+            <span>粮温分机</span>
+          </div>
+          <div>
+            <i></i>
+            <span>粮温分机</span>
+          </div>
+          <span class="station-ellipsis" aria-hidden="true">
+            …
+          </span>
+        </div>
+      </div>
+      <div class="connection-notes">
+        <p>
+          <strong>60+ 分机接入能力</strong>
+          <span>
+            已有 64 / 80 台软件容量验证，现场接入规模需结合设备与布线验收。
+          </span>
+        </p>
+        <a class="text-link" href={sitePath("/product/#communication")}>
+          查看接入能力与边界
+          <Icon name="chevron" size={16} />
+        </a>
+      </div>
+    </div>
+  </section>
+  <section class="exports-section container">
+    <div class="feature-copy">
+      <span class="feature-topic">数据与报告</span>
+      <h2>
+        从现场记录，
+        <br />
+        到可交付的文件。
+      </h2>
+      <p>
+        查询历史检测记录，按用途选择导出格式。日常分析、数据交换和打印归档，各有合适的表达。
+      </p>
+      <a class="text-link" href={sitePath("/product/#exports")}>
+        了解数据导出
+        <Icon name="chevron" size={16} />
+      </a>
+    </div>
+    <div class="format-list">
+      <div>
+        <span class="format-name">Excel</span>
+        <p>
+          分析与整理<small>总览、异常与分仓数据</small>
+        </p>
+        <span class="file-extension">.xlsx</span>
+      </div>
+      <div>
+        <span class="format-name">CSV</span>
+        <p>
+          数据交换<small>便于后续处理的平面数据</small>
+        </p>
+        <span class="file-extension">.csv</span>
+      </div>
+      <div>
+        <span class="format-name">PDF</span>
+        <p>
+          打印与归档<small>清晰的正式记录</small>
+        </p>
+        <span class="file-extension">.pdf</span>
+      </div>
+    </div>
+  </section>
+  <DownloadCTA />
+</Layout>

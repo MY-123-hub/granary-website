@@ -1,0 +1,29 @@
+---
+import Icon from "./Icon.astro";
+import { screenshots } from "../data/product";
+const { id, crop = false } = Astro.props;
+const shot = screenshots.find((s) => s.id === id)!;
+---
+
+<figure class:list={["feature-screenshot", { crop }]}>
+  <button
+    class="screenshot-button"
+    aria-label={`放大查看${shot.label}真实截图`}
+    data-image-open={shot.src}
+    data-image-alt={shot.alt}
+    data-image-caption={shot.caption}
+  >
+    <img
+      src={shot.src}
+      alt={shot.alt}
+      width={shot.width}
+      height={shot.height}
+      loading="lazy"
+    />
+    <span class="expand-hint">
+      <Icon name="expand" size={15} />
+      放大查看
+    </span>
+  </button>
+  <figcaption>{shot.caption}</figcaption>
+</figure>

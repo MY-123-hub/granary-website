@@ -1,0 +1,26 @@
+{
+  "name": "granary-product-website",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev --host 127.0.0.1 --port 4321",
+    "check": "astro check",
+    "build": "node scripts/validate-release.mjs && astro check && astro build && node scripts/verify-build.mjs",
+    "preview": "astro preview --host 127.0.0.1 --port 4321",
+    "release:inspect": "node scripts/inspect-installer.mjs",
+    "format": "prettier --plugin prettier-plugin-astro --write src scripts astro.config.mjs README.md docs"
+  },
+  "dependencies": {
+    "astro": "7.3.7"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.9",
+    "prettier": "3.9.9",
+    "prettier-plugin-astro": "1.1.0",
+    "typescript": "^5.9.3"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  }
+}

@@ -1,0 +1,167 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ProductShowcase from "../components/ProductShowcase.astro";
+import Screenshot from "../components/Screenshot.astro";
+import DownloadCTA from "../components/DownloadCTA.astro";
+---
+
+<Layout title="产品功能">
+  <section class="page-intro container">
+    <span class="feature-topic">产品功能</span>
+    <h1>
+      从一处测点，
+      <br />
+      到一座粮库。
+    </h1>
+    <p>
+      围绕粮温采集、数据分析与仓房管理，
+      <br />
+      让每天的现场工作有清晰的信息支撑。
+    </p>
+  </section>
+  <div class="container product-page-showcase">
+    <ProductShowcase />
+  </div>
+  <nav class="product-anchor-nav container" aria-label="功能章节">
+    <a href="#monitoring">粮温监测</a>
+    <a href="#warehouses">仓房管理</a>
+    <a href="#communication">设备接入</a>
+    <a href="#exports">数据导出</a>
+  </nav>
+  <section id="monitoring" class="feature-row container">
+    <div class="feature-copy">
+      <span class="feature-topic">粮温监测</span>
+      <h2>
+        温度有位置，
+        <br />
+        变化有记录。
+      </h2>
+      <p>
+        查看真实分机采集的粮温，在平面和三维视图中定位电缆与测点。历史曲线支持整仓与单点查询，离线和缺测保持为空，不用虚构读数填补断点。
+      </p>
+      <ul class="quiet-list">
+        <li>整仓均温、最高温度与最低温度</li>
+        <li>按批次查看平面图与三维视图</li>
+        <li>历史曲线与时间范围查询</li>
+        <li>预警、报警及异常记录</li>
+      </ul>
+    </div>
+    <div class="feature-visual">
+      <Screenshot id="curves" crop />
+    </div>
+  </section>
+  <section id="warehouses" class="feature-row reverse container">
+    <div class="feature-visual">
+      <Screenshot id="warehouses" crop />
+    </div>
+    <div class="feature-copy">
+      <span class="feature-topic">多粮仓管理</span>
+      <h2>
+        信息按仓组织，
+        <br />
+        历史完整保留。
+      </h2>
+      <p>
+        统一维护仓房、储粮批次、电缆和测点。配置与检测记录按版本保留，仓房归档后仍支持历史查询和导出。
+      </p>
+      <ul class="quiet-list">
+        <li>平房仓与浅圆仓档案</li>
+        <li>储粮批次与测点配置</li>
+        <li>单点与整仓温度校准</li>
+        <li>归档仓房历史查询</li>
+      </ul>
+    </div>
+  </section>
+  <section id="communication" class="product-detail-section container">
+    <div class="section-heading">
+      <h2>
+        接入能力，
+        <br />
+        说清楚每一处边界。
+      </h2>
+      <p>
+        真实采集、软件验证与待接入能力分别说明，
+        <br />
+        方便您判断现场部署需要什么。
+      </p>
+    </div>
+    <div class="capability-table">
+      <div>
+        <h3>RS485 粮温采集</h3>
+        <span class="badge">已实现</span>
+        <p>
+          后端经用户配置的 USB RS485
+          串口读取粮温分机；通讯失败保留错误，不回退模拟采集。
+        </p>
+      </div>
+      <div>
+        <h3>60+ 分机接入</h3>
+        <span class="badge badge-neutral">软件验证</span>
+        <p>
+          已有 64 / 80
+          台软件容量验证记录。真实现场规模、轮询时间与稳定性须按设备、布线及通信参数验收。
+        </p>
+      </div>
+      <div>
+        <h3>Modbus 通信</h3>
+        <span class="badge badge-neutral">待现场验收</span>
+        <p>
+          已提供相关通信配置与协议实现；真实设备联调与现场兼容性仍待验证，不等同于已完成接入。
+        </p>
+      </div>
+      <div>
+        <h3>空调设备控制</h3>
+        <span class="badge badge-neutral">模拟展示</span>
+        <p>
+          已有空调管理与通信配置界面，当前控制保持模拟，尚未开放真实设备控制。
+        </p>
+      </div>
+      <div>
+        <h3>Windows 本地部署</h3>
+        <span class="badge badge-neutral">安装包待发布</span>
+        <p>
+          已有 x64 候选安装包，采用本地部署与整机离线授权。公开下载和目标
+          Windows 实机验收待完成。
+        </p>
+      </div>
+    </div>
+  </section>
+  <section id="exports" class="exports-section container">
+    <div class="feature-copy">
+      <span class="feature-topic">数据导出</span>
+      <h2>
+        让记录，
+        <br />
+        继续发挥价值。
+      </h2>
+      <p>
+        检测数据支持 Excel、CSV 与 PDF
+        导出。按用途选择格式，将查询结果带到后续分析、数据交换与纸面归档中。
+      </p>
+    </div>
+    <div class="format-list">
+      <div>
+        <span class="format-name">Excel</span>
+        <p>
+          分析与整理<small>总览、异常与分仓数据</small>
+        </p>
+        <span class="file-extension">.xlsx</span>
+      </div>
+      <div>
+        <span class="format-name">CSV</span>
+        <p>
+          数据交换<small>平面结构，便于后续处理</small>
+        </p>
+        <span class="file-extension">.csv</span>
+      </div>
+      <div>
+        <span class="format-name">PDF</span>
+        <p>
+          打印与归档<small>正式记录与报表</small>
+        </p>
+        <span class="file-extension">.pdf</span>
+      </div>
+    </div>
+  </section>
+  <DownloadCTA />
+</Layout>

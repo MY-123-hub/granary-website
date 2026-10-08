@@ -1,0 +1,185 @@
+---
+import { sitePath, routePath } from "../lib/paths";
+import "../styles/global.css";
+import Brand from "../components/Brand.astro";
+import Icon from "../components/Icon.astro";
+import { product } from "../data/product";
+interface Props {
+  title?: string;
+  description?: string;
+}
+const {
+  title,
+  description = "智慧粮仓检测系统，集中查看粮温、历史曲线与仓房档案，支持 RS485 粮温采集和多种数据导出。了解产品、Windows 版本和使用文档。",
+} = Astro.props;
+const pageTitle = title
+  ? `${title} · ${product.name}`
+  : `${product.name} · 让粮情清晰，让管理有据`;
+const path = routePath(Astro.url.pathname);
+const canonical = Astro.site
+  ? new URL(Astro.url.pathname, Astro.site).href
+  : undefined;
+const nav = [
+  { href: "/product/", label: "产品功能" },
+  { href: "/download/", label: "下载中心" },
+  { href: "/changelog/", label: "更新日志" },
+  { href: "/docs/", label: "使用文档" },
+];
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#ffffff" />
+    <title>{pageTitle}</title>
+    <link rel="icon" href={sitePath("/favicon.svg")} type="image/svg+xml" />
+    <link
+      rel="preload"
+      href={sitePath("/fonts/noto-sans-sc-website.woff2")}
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    {canonical && <link rel="canonical" href={canonical} />}
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="zh_CN" />
+    {canonical && <meta property="og:url" content={canonical} />}
+    <meta name="twitter:card" content="summary" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">
+      跳到主要内容
+    </a>
+    <header class="site-header">
+      <div class="header-inner">
+        <Brand />
+        <nav class="desktop-nav" aria-label="主导航">
+          {nav.map((item) => (
+            <a
+              href={sitePath(item.href)}
+              aria-current={path.startsWith(item.href) ? "page" : undefined}
+            >
+              {item.label}
+            </a>
+          ))}
+        </nav>
+        <a
+          class="button button-small header-download"
+          href={sitePath("/download/")}
+        >
+          <Icon name="download" size={16} />
+          Windows 版
+        </a>
+        <button
+          class="menu-toggle icon-button"
+          aria-label="展开导航"
+          aria-controls="mobile-nav"
+          aria-expanded="false"
+        >
+          <Icon name="menu" />
+        </button>
+      </div>
+      <nav id="mobile-nav" class="mobile-nav" aria-label="移动端导航" hidden>
+        {nav.map((item) => (
+          <a
+            href={sitePath(item.href)}
+            aria-current={path.startsWith(item.href) ? "page" : undefined}
+          >
+            {item.label}
+            <Icon name="chevron" size={16} />
+          </a>
+        ))}
+      </nav>
+    </header>
+    <main id="main">
+      <slot />
+    </main>
+    <footer class="site-footer container">
+      <div class="footer-top">
+        <div>
+          <Brand compact />
+          <p>{product.tagline}</p>
+        </div>
+        <nav aria-label="页脚导航">
+          {nav.map((item) => (
+            <a href={sitePath(item.href)}>{item.label}</a>
+          ))}
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <span>© {new Date().getFullYear()} 智慧粮仓检测系统</span>
+        <span>为粮仓现场而设计</span>
+      </div>
+    </footer>
+    <dialog class="image-dialog" aria-labelledby="image-dialog-title">
+      <div class="dialog-toolbar">
+        <p id="image-dialog-title">产品界面</p>
+        <button class="icon-button dialog-close" aria-label="关闭大图">
+          <Icon name="close" />
+        </button>
+      </div>
+      <div class="dialog-image-wrap">
+        <img class="dialog-image" alt="" />
+      </div>
+      <p class="dialog-caption"></p>
+    </dialog>
+    <script>
+      const toggle = document.querySelector<HTMLButtonElement>(".menu-toggle");
+      const menu = document.querySelector<HTMLElement>("#mobile-nav");
+      function closeMenu() {
+        if (toggle && menu) {
+          toggle.setAttribute("aria-expanded", "false");
+          toggle.setAttribute("aria-label", "展开导航");
+          menu.hidden = true;
+        }
+      }
+      toggle?.addEventListener("click", () => {
+        if (!menu) return;
+        const open = toggle.getAttribute("aria-expanded") !== "true";
+        toggle.setAttribute("aria-expanded", String(open));
+        toggle.setAttribute("aria-label", open ? "收起导航" : "展开导航");
+        menu.hidden = !open;
+      });
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && menu && !menu.hidden) {
+          closeMenu();
+          toggle?.focus();
+        }
+      });
+      window
+        .matchMedia("(min-width: 761px)")
+        .addEventListener("change", (event) => {
+          if (event.matches) closeMenu();
+        });
+      const dialog = document.querySelector<HTMLDialogElement>(".image-dialog");
+      const image = dialog?.querySelector<HTMLImageElement>(".dialog-image");
+      const caption = dialog?.querySelector<HTMLElement>(".dialog-caption");
+      let lastTrigger: HTMLElement | null = null;
+      document
+        .querySelectorAll<HTMLButtonElement>("[data-image-open]")
+        .forEach((button) =>
+          button.addEventListener("click", () => {
+            if (!dialog || !image) return;
+            lastTrigger = button;
+            image.src = button.dataset.imageOpen!;
+            image.alt = button.dataset.imageAlt || "真实产品界面截图";
+            if (caption)
+              caption.textContent = button.dataset.imageCaption || "";
+            dialog.showModal();
+          }),
+        );
+      dialog
+        ?.querySelector(".dialog-close")
+        ?.addEventListener("click", () => dialog.close());
+      dialog?.addEventListener("click", (event) => {
+        if (event.target === dialog) dialog.close();
+      });
+      dialog?.addEventListener("close", () => lastTrigger?.focus());
+    </script>
+  </body>
+</html>

@@ -1,0 +1,15 @@
+---
+import { sitePath } from "../lib/paths";
+import Icon from "./Icon.astro";
+---
+
+<section class="download-cta container">
+  <div>
+    <h2>从看清粮情开始。</h2>
+    <p>了解 Windows 版本，准备您的本地部署。</p>
+  </div>
+  <a class="button" href={sitePath("/download/")}>
+    <Icon name="windows" size={17} />
+    前往下载中心
+  </a>
+</section>

@@ -1,0 +1,35 @@
+---
+import { sitePath } from "../lib/paths";
+const { compact = false } = Astro.props;
+---
+
+<a
+  href={sitePath("/")}
+  class:list={["brand", { compact }]}
+  aria-label="智慧粮仓检测系统首页"
+>
+  <svg
+    class="brand-mark"
+    viewBox="0 0 36 36"
+    width="36"
+    height="36"
+    fill="none"
+    aria-hidden="true"
+  >
+    <path
+      d="M5 15 18 5l13 10v15H5V15Z"
+      stroke="currentColor"
+      stroke-width="1.7"
+      stroke-linejoin="round"
+    />
+    <path
+      d="M18 13v18m0-10c-5 0-7-3-7-6 5 0 7 3 7 6Zm0 6c5 0 7-3 7-6-5 0-7 3-7 6Z"
+      stroke="currentColor"
+      stroke-width="1.6"
+      stroke-linejoin="round"
+    />
+  </svg>
+  <span>
+    智慧粮仓<span class="brand-descriptor">检测系统</span>
+  </span>
+</a>

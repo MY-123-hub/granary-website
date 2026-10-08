@@ -1,0 +1,109 @@
+---
+import { screenshots } from "../data/product";
+import Icon from "./Icon.astro";
+---
+
+<div class="product-showcase">
+  <div class="showcase-frame">
+    <div class="window-chrome">
+      <span class="window-dots" aria-hidden="true">
+        <i></i>
+        <i></i>
+        <i></i>
+      </span>
+      <span>智慧粮仓检测系统</span>
+      <span class="window-local">本地部署</span>
+    </div>
+    {screenshots.map((shot, index) => (
+      <div
+        class="showcase-panel"
+        id={`showcase-${shot.id}`}
+        role="tabpanel"
+        aria-labelledby={`tab-${shot.id}`}
+        hidden={index !== 0}
+        data-caption={shot.caption}
+      >
+        <button
+          class="screenshot-button"
+          aria-label={`放大查看${shot.label}真实截图`}
+          data-image-open={shot.src}
+          data-image-alt={shot.alt}
+          data-image-caption={shot.caption}
+        >
+          <img
+            src={shot.src}
+            alt={shot.alt}
+            width={shot.width}
+            height={shot.height}
+            loading={index === 0 ? "eager" : "lazy"}
+            fetchpriority="auto"
+          />
+          <span class="expand-hint">
+            <Icon name="expand" size={15} />
+            放大查看
+          </span>
+        </button>
+      </div>
+    ))}
+  </div>
+  <div class="showcase-bottom">
+    <div class="showcase-tabs" role="tablist" aria-label="产品界面展示">
+      {screenshots.map((shot, index) => (
+        <button
+          id={`tab-${shot.id}`}
+          role="tab"
+          aria-selected={index === 0 ? "true" : "false"}
+          aria-controls={`showcase-${shot.id}`}
+          tabindex={index === 0 ? 0 : -1}
+        >
+          {shot.label}
+        </button>
+      ))}
+    </div>
+    <span class="screenshot-label">真实软件界面</span>
+  </div>
+  <p class="showcase-caption">{screenshots[0]!.caption}</p>
+</div>
+<script>
+  document
+    .querySelectorAll<HTMLElement>(".product-showcase")
+    .forEach((showcase) => {
+      const tabs = Array.from(
+        showcase.querySelectorAll<HTMLButtonElement>('[role="tab"]'),
+      );
+      const panels = Array.from(
+        showcase.querySelectorAll<HTMLElement>('[role="tabpanel"]'),
+      );
+      function activate(index: number, focus = false) {
+        tabs.forEach((tab, i) => {
+          tab.setAttribute("aria-selected", String(index === i));
+          tab.tabIndex = index === i ? 0 : -1;
+        });
+        panels.forEach((panel, i) => {
+          panel.hidden = index !== i;
+        });
+        const caption = showcase.querySelector(".showcase-caption");
+        if (caption) caption.textContent = panels[index]?.dataset.caption || "";
+        if (focus) tabs[index]?.focus();
+      }
+      tabs.forEach((tab, index) => {
+        tab.addEventListener("click", () => activate(index));
+        tab.addEventListener("keydown", (event) => {
+          const next =
+            event.key === "ArrowRight"
+              ? (index + 1) % tabs.length
+              : event.key === "ArrowLeft"
+                ? (index - 1 + tabs.length) % tabs.length
+                : event.key === "Home"
+                  ? 0
+                  : event.key === "End"
+                    ? tabs.length - 1
+                    : null;
+          if (next != null) {
+            event.preventDefault();
+            activate(next, true);
+          }
+        });
+      });
+    });
+</script>

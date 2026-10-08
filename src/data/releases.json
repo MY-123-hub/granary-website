@@ -1,0 +1,20 @@
+[
+  {
+    "version": "1.0.0",
+    "status": "draft",
+    "platform": "windows",
+    "architecture": "x64",
+    "preparedAt": "2026-10-07",
+    "publishedAt": null,
+    "downloadUrl": null,
+    "fileName": "智慧粮仓检测系统_Setup_x64_v1.0.0.exe",
+    "sizeBytes": 1346594949,
+    "sha256": "184d5b0667d5b425e3fb21c8cb2cf00a72edfa8da5cf9bfa4db525e588ffaa32",
+    "releaseNotes": [
+      "准备 Windows x64 本地部署安装包。",
+      "提供粮温查看、历史曲线与多仓房管理界面。",
+      "提供检测数据查询、异常监测和 Excel / CSV / PDF 导出。",
+      "配套整机离线授权，客户包内置对应验签公钥。"
+    ]
+  }
+]

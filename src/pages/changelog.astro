@@ -1,0 +1,60 @@
+---
+import { sitePath } from "../lib/paths";
+import Layout from "../layouts/Layout.astro";
+import Icon from "../components/Icon.astro";
+import { releases } from "../data/product";
+---
+
+<Layout title="更新日志">
+  <section class="page-intro container">
+    <span class="feature-topic">更新日志</span>
+    <h1>
+      每一步，
+      <br />
+      都有记录。
+    </h1>
+    <p>
+      软件版本与发布内容。
+      <br />
+      让每一次更新都清楚可查。
+    </p>
+  </section>
+  <section class="changelog container">
+    {releases.map((release) => (
+      <article class="release-entry">
+        <div class="release-entry-meta">
+          <span
+            class:list={[
+              "badge",
+              { "badge-neutral": release.status !== "published" },
+            ]}
+          >
+            {release.status === "published" ? "正式发布" : "发布准备"}
+          </span>
+          <h2>v{release.version}</h2>
+          <p>{release.publishedAt || `${release.preparedAt} 准备`}</p>
+          <span>Windows x64</span>
+        </div>
+        <div class="release-entry-content">
+          <h3>
+            {release.status === "published" ? "版本更新内容" : "首版候选内容"}
+          </h3>
+          <p>
+            {release.status === "published"
+              ? "本版本包含以下更新。"
+              : "当前为候选安装包，尚未公开发布。以下内容用于说明首版范围。"}
+          </p>
+          <ul>
+            {release.releaseNotes.map((note) => (
+              <li>{note}</li>
+            ))}
+          </ul>
+          <a class="text-link" href={sitePath("/download/")}>
+            {release.status === "published" ? "前往下载" : "查看安装包准备状态"}
+            <Icon name="chevron" size={16} />
+          </a>
+        </div>
+      </article>
+    ))}
+  </section>
+</Layout>

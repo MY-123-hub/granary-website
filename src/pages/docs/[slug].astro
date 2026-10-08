@@ -1,0 +1,59 @@
+---
+import { sitePath } from "../../lib/paths";
+import Layout from "../../layouts/Layout.astro";
+import Icon from "../../components/Icon.astro";
+import { docTopics } from "../../data/product";
+export function getStaticPaths() {
+  return docTopics.map((doc) => ({
+    params: { slug: doc.slug },
+    props: { doc },
+  }));
+}
+const { doc } = Astro.props;
+---
+
+<Layout title={doc.title}>
+  <div class="doc-layout container">
+    <aside class="doc-sidebar">
+      <a class="text-link" href={sitePath("/docs/")}>
+        全部文档
+      </a>
+      <nav aria-label="文档导航">
+        {docTopics.map((item) => (
+          <a
+            href={sitePath(`/docs/${item.slug}/`)}
+            aria-current={doc.slug === item.slug ? "page" : undefined}
+          >
+            {item.title}
+          </a>
+        ))}
+      </nav>
+    </aside>
+    <article class="doc-content">
+      <div class="doc-breadcrumb">
+        <a href={sitePath("/docs/")}>使用文档</a>
+        <Icon name="chevron" size={13} />
+        <span>{doc.category}</span>
+      </div>
+      <h1>{doc.title}</h1>
+      <p class="doc-summary">{doc.summary}</p>
+      <div class="doc-pending">
+        <span class="badge badge-neutral">教程待补充</span>
+        <p>这篇文档的结构已准备。详细步骤和界面说明将在对应版本确认后补充。</p>
+      </div>
+      <h2>本篇将包含</h2>
+      <ul class="doc-outline">
+        {doc.outline.map((title) => (
+          <li>{title}</li>
+        ))}
+      </ul>
+      <div class="doc-next">
+        <p>准备安装？先确认版本与安装包状态。</p>
+        <a class="text-link" href={sitePath("/download/")}>
+          前往下载中心
+          <Icon name="chevron" size={16} />
+        </a>
+      </div>
+    </article>
+  </div>
+</Layout>
