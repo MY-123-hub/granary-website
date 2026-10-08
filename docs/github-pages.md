@@ -35,7 +35,7 @@ PUBLIC_SITE_URL=https://my-123-hub.github.io PUBLIC_BASE_PATH=/granary-website n
 
 - 文字与组件：`src/pages/`、`src/components/`。
 - 排版与配色：`src/styles/global.css`；设计规范见 `docs/design-system.md`。
-- 真实截图：`public/images/`；元信息在 `src/data/product.ts`。
+- 产品界面截图：`public/images/`；元信息在 `src/data/product.ts`，当前图片使用明确标注的演示数据。来源记录在 `src/data/product-source.json`。
 - 首屏界面：`MonitoringPreview.astro`；明确标注的样本在 `monitoring-preview.ts`。
 - 字体：`public/fonts/`，自托管 Noto Sans SC 子集，保留 SIL OFL 授权；维护说明见字体目录 README。
 
@@ -50,3 +50,5 @@ PUBLIC_SITE_URL=https://my-123-hub.github.io PUBLIC_BASE_PATH=/granary-website n
 ## 从业务工作区更新
 
 原工作区的 `website/` 修改后，运行 `npm run export:pages`，按文件白名单同步到相邻的独立 `官网发布/` 仓库。审查其 `git diff` 后提交并推送 `main`。不推送原业务仓库，不包含原 Git 历史；导出只复制官网源文件和公共素材。
+
+导出会校验截图来源记录与本地 `main:dist`。产品前端变更后，必须先核对并刷新截图；禁止直接修改来源记录来绕过检查。此校验只在业务工作区执行，独立公开仓库不访问业务源码。

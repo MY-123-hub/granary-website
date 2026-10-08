@@ -30,20 +30,20 @@ export const screenshots = [
   {
     id: "curves",
     label: "温度曲线",
-    src: sitePath("/images/product-curves.jpg"),
-    alt: "真实软件中的粮温历史曲线与温度统计",
-    caption: "粮温历史曲线 · 真实软件截图，展示已保存的实测批次",
+    src: sitePath("/images/product-curves-main.jpg"),
+    alt: "当前产品界面的粮温曲线与温度统计，使用演示数据",
+    caption: "粮温曲线 · 当前产品界面截图，数据为演示样本",
     width: 1265,
-    height: 1280,
+    height: 1340,
   },
   {
     id: "warehouses",
     label: "仓房管理",
-    src: sitePath("/images/product-warehouses.jpg"),
-    alt: "真实软件中的仓房档案列表，包含示范仓房及测点配置状态",
-    caption: "仓房档案管理 · 真实软件截图，包含示范仓房",
+    src: sitePath("/images/product-warehouses-main.jpg"),
+    alt: "当前产品界面的粮仓档案列表，包含演示仓房及测点配置状态",
+    caption: "粮仓档案 · 当前产品界面截图，仓房为演示样本",
     width: 1265,
-    height: 1453,
+    height: 838,
   },
 ];
 export const docTopics = [

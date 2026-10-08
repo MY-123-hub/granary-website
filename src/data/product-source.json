@@ -1,0 +1,23 @@
+{
+  "sourceBranch": "main",
+  "sourceCommit": "742bc75843797579ab91fb77ebd249b16fd226e6",
+  "frontendTree": "f821085939ab030d4a340c78576a85a56b304d2c",
+  "capturedAt": "2026-10-08",
+  "screenshots": ["product-curves-main.jpg", "product-warehouses-main.jpg"],
+  "captureMode": "isolated-static-frontend",
+  "dataKind": "demo",
+  "previewDifferences": [
+    "仅独立预览启用演示身份，无后端、数据库或设备连接",
+    "注入两座公开演示仓房与模拟粮温",
+    "增加截图来源与演示数据角标"
+  ],
+  "heroKind": "website-adaptation",
+  "heroNavigation": [
+    "工作台",
+    "粮情监测",
+    "粮仓档案",
+    "通风调控",
+    "报表中心",
+    "系统设置"
+  ]
+}
